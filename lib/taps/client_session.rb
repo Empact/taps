@@ -70,20 +70,18 @@ class ClientSession
 	end
 
 	def cmd_send
-		begin
-			verify_server
-			cmd_send_schema
-			cmd_send_data
-			cmd_send_indexes
-			cmd_send_reset_sequences
-		rescue RestClient::Exception => e
-			if e.respond_to?(:response)
-				puts "!!! Caught Server Exception"
-				puts "#{e.response.body}"
-				exit(1)
-			else
-				raise
-			end
+		verify_server
+		cmd_send_schema
+		cmd_send_data
+		cmd_send_indexes
+		cmd_send_reset_sequences
+	rescue RestClient::Exception => e
+		if e.respond_to?(:response)
+			puts "!!! Caught Server Exception"
+			puts "#{e.response.body}"
+			exit(1)
+		else
+			raise
 		end
 	end
 
@@ -170,20 +168,18 @@ class ClientSession
 	end
 
 	def cmd_receive
-		begin
-			verify_server
-			cmd_receive_schema
-			cmd_receive_data
-			cmd_receive_indexes
-			cmd_reset_sequences
-		rescue RestClient::Exception => e
-			if e.respond_to?(:response)
-				puts "!!! Caught Server Exception"
-				puts "#{e.response.body}"
-				exit(1)
-			else
-				raise
-			end
+		verify_server
+		cmd_receive_schema
+		cmd_receive_data
+		cmd_receive_indexes
+		cmd_reset_sequences
+	rescue RestClient::Exception => e
+		if e.respond_to?(:response)
+			puts "!!! Caught Server Exception"
+			puts "#{e.response.body}"
+			exit(1)
+		else
+			raise
 		end
 	end
 
@@ -283,23 +279,21 @@ class ClientSession
 	end
 
 	def verify_server
-		begin
-			server['/'].get(http_headers)
-		rescue RestClient::RequestFailed => e
-			if e.http_code == 417
-				puts "#{safe_remote_url} is running a different minor version of taps."
-				puts "#{e.response.body}"
-				exit(1)
-			else
-				raise
-			end
-		rescue RestClient::Unauthorized
-			puts "Bad credentials given for #{safe_remote_url}"
+		server['/'].get(http_headers)
+	rescue RestClient::RequestFailed => e
+		if e.http_code == 417
+			puts "#{safe_remote_url} is running a different minor version of taps."
+			puts "#{e.response.body}"
 			exit(1)
-		rescue Errno::ECONNREFUSED
-			puts "Can't connect to #{safe_remote_url}. Please check that it's running"
-			exit(1)
+		else
+			raise
 		end
+	rescue RestClient::Unauthorized
+		puts "Bad credentials given for #{safe_remote_url}"
+		exit(1)
+	rescue Errno::ECONNREFUSED
+		puts "Can't connect to #{safe_remote_url}. Please check that it's running"
+		exit(1)
 	end
 end
 end
