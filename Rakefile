@@ -14,6 +14,7 @@ begin
     s.add_dependency 'rest-client', '>= 1.2.0', '< 2.0.0'
     s.add_dependency 'sequel', '>= 3.0.0', '< 3.1.0'
     s.add_dependency 'sqlite3-ruby', '~> 1.2.0'
+    s.add_dependency 'ruby-progressbar', '= 0.0.9'
 
     s.rubyforge_project = "taps"
     s.rubygems_version = '1.3.1'

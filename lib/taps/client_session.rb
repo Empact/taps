@@ -2,7 +2,7 @@ require 'rest_client'
 require 'sequel'
 require 'zlib'
 
-require 'taps/progress_bar'
+require 'progressbar'
 require 'taps/config'
 require 'taps/utils'
 
