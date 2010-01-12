@@ -125,13 +125,14 @@ class ClientSession
 			offset = 0
 			loop do
 				row_size = 0
-				chunksize = Taps::Utils.calculate_chunksize(chunksize) do |c|
-					rows = Taps::Utils.format_data(table.order(*order).limit(c, offset).all, string_columns)
-					break if rows == { }
 
-					row_size = rows[:data].size
-					gzip_data = Taps::Utils.gzip(Marshal.dump(rows))
+				rows = Taps::Utils.format_data(table.order(*order).limit(chunksize, offset).all, string_columns)
+				break if rows == { }
 
+				row_size = rows[:data].size
+				gzip_data = Taps::Utils.gzip(Marshal.dump(rows))
+
+				chunksize = Taps::Utils.calculate_chunksize(chunksize) do
 					begin
 						session_resource["tables/#{table_name}"].post(gzip_data, http_headers({
 							:content_type => 'application/octet-stream',
