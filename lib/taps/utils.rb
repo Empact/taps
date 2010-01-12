@@ -8,7 +8,7 @@ module Utils
 	extend self
 
 	def windows?
-		RUBY_PLATFORM =~ /mswin32|mingw32/
+		/mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
 	end
 
 	def bin(cmd)
