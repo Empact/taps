@@ -9,12 +9,8 @@ module Taps
 		}
 
 		def load(adapter)
-			LIST[:all].each do |r|
-				require File.dirname(__FILE__) + "/adapter_hacks/#{r}"
-			end
-
-			(LIST[adapter.to_sym] || []).each do |r|
-				require File.dirname(__FILE__) + "/adapter_hacks/#{r}"
+			(LIST[:all] + LIST[adapter.to_sym]).each do |r|
+				require "taps/adapter_hacks/#{r}"
 			end
 		end
 	end

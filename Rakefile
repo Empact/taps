@@ -54,7 +54,7 @@ task :spec do
   if `which bacon`.empty?
     puts "bacon is not available. In order to run the specs, you must: sudo gem install bacon."
   else
-    system "bacon #{File.dirname(__FILE__)}/spec/*_spec.rb"
+    system "bacon -I #{File.dirname(__FILE__)}/lib/ #{File.dirname(__FILE__)}/spec/*_spec.rb"
   end
 end
 

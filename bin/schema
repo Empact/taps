@@ -3,7 +3,7 @@
 require 'rubygems'
 gem 'activerecord', '= 2.2.2'
 
-require File.dirname(__FILE__) + '/../lib/taps/schema'
+require 'lib/taps/schema'
 
 cmd = ARGV.shift.strip rescue ''
 database_url = ARGV.shift.strip rescue ''

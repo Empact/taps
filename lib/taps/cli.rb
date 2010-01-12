@@ -1,5 +1,5 @@
 require 'thor'
-require File.dirname(__FILE__) + '/config'
+require 'taps/config'
 
 Taps::Config.taps_database_url = ENV['TAPS_DATABASE_URL'] || 'sqlite://taps.db'
 
@@ -16,7 +16,7 @@ class Cli < Thor
 
 		Taps::Config.verify_database_url
 
-		require File.dirname(__FILE__) + '/server'
+		require 'taps/server'
 		Taps::Server.run!({
 			:port => port,
 			:environment => :production,
@@ -52,7 +52,7 @@ class Cli < Thor
 
 		Taps::Config.verify_database_url
 
-		require File.dirname(__FILE__) + '/client_session'
+		require 'taps/client_session'
 
 		Taps::ClientSession.quickstart do |session|
 			session.send(method)

@@ -3,7 +3,7 @@ require 'active_support'
 require 'stringio'
 require 'uri'
 
-require File.dirname(__FILE__) + '/adapter_hacks'
+require 'taps/adapter_hacks'
 
 module Taps
 module Schema
