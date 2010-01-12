@@ -12,8 +12,7 @@ module Utils
 	end
 
 	def bin(cmd)
-		cmd = "#{cmd}.cmd" if windows?
-		cmd
+		windows? ? "#{cmd}.cmd" : cmd
 	end
 
 	def checksum(data)
