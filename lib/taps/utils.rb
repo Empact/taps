@@ -47,12 +47,10 @@ module Utils
 	def incorrect_blobs(db, table)
 		return [] unless db.class.to_s == "Sequel::MySQL::Database"
 
-		columns = []
-		db.schema(table).each do |data|
+		db.schema(table).map do |data|
 			column, cdata = data
-			columns << column if cdata[:db_type] =~ /text/
-		end
-		columns
+			column if cdata[:db_type] =~ /text/
+		end.compact
 	end
 
 	def blobs_to_string(row, columns)
