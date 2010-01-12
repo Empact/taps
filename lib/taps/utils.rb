@@ -7,14 +7,6 @@ module Taps
 module Utils
 	extend self
 
-	def windows?
-		/mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
-	end
-
-	def bin(cmd)
-		windows? ? "#{cmd}.cmd" : cmd
-	end
-
 	def checksum(data)
 		Zlib.crc32(data)
 	end
@@ -119,6 +111,14 @@ module Utils
 			File.open(tmp.path, 'w') { |f| f.write(index_data) }
 			schema_bin(:load_indexes, database_url, tmp.path)
 		end
+	end
+
+	def windows?
+		/mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
+	end
+
+	def bin(cmd)
+		windows? ? "#{cmd}.cmd" : cmd
 	end
 
 	def schema_bin(*args)
