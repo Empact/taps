@@ -113,7 +113,6 @@ class ClientSession
 		puts "#{tables_with_counts.size} tables, #{format_number(record_count)} records"
 
 		tables_with_counts.each do |table_name, count|
-			puts "Table: #{table_name}, #{count}"
 			table = db[table_name]
 			order = Taps::Utils.order_by(db, table_name)
 			chunksize = self.default_chunksize
